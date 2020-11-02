@@ -10,6 +10,10 @@
 import sys, os
 sys.path.insert(1, os.path.join(os.path.dirname(__file__), '../pfdo_med2image'))
 
+# Turn off all logging for modules in this libary.
+import logging
+logging.disable(logging.CRITICAL)
+
 import  pfdo_med2image
 from    argparse            import RawTextHelpFormatter
 from    argparse            import ArgumentParser
@@ -70,6 +74,7 @@ def synopsis(ab_shortOnly = False):
                      -O|--outputDir <outputDir>             \\
                     [-i|--inputFile <inputFile>]            \\
                     [--filterExpression <someFilter>]       \\
+                    [--analyzeFileIndex <someIndex>]        \\
                     [--outputLeafDir <outputLeafDirFormat>] \\
                     [-t|--outputFileType <outputFileType>]  \\
                     [-s|--sliceToConvert <sliceToConvert>]  \\
@@ -117,6 +122,17 @@ def synopsis(ab_shortOnly = False):
         [-f|--filterExpression <someFilter>]
         An optional string to filter the files of interest from the
         <inputDir> tree.
+
+        [--analyzeFileIndex <someIndex>]
+        An optional string to control which file(s) in a specific directory
+        to which the analysis is applied. The default is "-1" which implies
+        *ALL* files in a given directory. Other valid <someIndex> are:
+            'm':   only the "middle" file in the returned file list
+            "f":   only the first file in the returned file list
+            "l":   only the last file in the returned file list
+            "<N>": the file at index N in the file list. If this index
+                   is out of bounds, no analysis is performed.
+            "-1" means all files.
 
         [--outputLeafDir <outputLeafDirFormat>]
         If specified, will apply the <outputLeafDirFormat> to the output
@@ -255,6 +271,10 @@ parser.add_argument("--filterExpression",
                     help    = "string file filter",
                     dest    = 'filter',
                     default = '')
+parser.add_argument("--analyzeFileIndex",
+                    help    = "file index per directory to analyze",
+                    dest    = 'analyzeFileIndex',
+                    default = '-1')
 parser.add_argument("-O", "--outputDir",
                     help    = "output image directory",
                     dest    = 'outputDir',
