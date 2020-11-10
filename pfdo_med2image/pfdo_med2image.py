@@ -174,8 +174,9 @@ class pfdo_med2image(pfdo.pfdo):
                                                 self.args['inputDir'], 
                                                 self.args['outputDir']
                                             )
-            med2image_args['outputDir'] = os.path.join(med2image_args['outputDir'], str_file)
-            os.mkdir(med2image_args['outputDir'])                                           
+            if "nii" in str_file:
+                med2image_args['outputDir'] = os.path.join(med2image_args['outputDir'], str_file)
+                os.mkdir(med2image_args['outputDir'])                                           
             med2image_ns    = Namespace(**med2image_args)
             imgConverter    = med2image.object_factoryCreate(med2image_ns).C_convert
 
