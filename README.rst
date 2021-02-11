@@ -1,5 +1,5 @@
-pfdo_med2image
-==================
+pfdo_med2image 1.1.2
+=====================
 
 .. image:: https://badge.fury.io/py/pfdo_med2image.svg
     :target: https://badge.fury.io/py/pfdo_med2image
@@ -66,9 +66,30 @@ Command line arguments
         specified, then do not perform a directory walk, but convert only
         this file.
 
-        [--filterExpression <someFilter>]
-        An optional string to filter the files of interest from the
-        <inputDir> tree.
+        [--fileFilter <someFilter1,someFilter2,...>]
+        An optional comma-delimated string to filter out files of interest
+        from the <inputDir> tree. Each token in the expression is applied in
+        turn over the space of files in a directory location, and only files
+        that contain this token string in their filename are preserved.
+
+        [--dirFilter <someFilter1,someFilter2,...>]
+        Similar to the `fileFilter` but applied over the space of leaf node
+        in directory paths. A directory must contain at least one file
+        to be considered.
+
+        If a directory leaf node contains a string that corresponds to any of
+        the filter tokens, a special "hit" is recorded in the file hit list,
+        "%d-<leafnode>". For example, a directory of
+
+                            /some/dir/in/the/inputspace/here1234
+
+        with a `dirFilter` of `1234` will create a "special" hit entry of
+        "%d-here1234" to tag this directory for processing.
+
+        In addition, if a directory is filtered through, all the files in
+        that directory will be added to the filtered file list. If no files
+        are to be added, passing an explicit file filter with an "empty"
+        single string argument, i.e. `--fileFilter " "`, is advised.
 
         [--analyzeFileIndex <someIndex>]
         An optional string to control which file(s) in a specific directory
