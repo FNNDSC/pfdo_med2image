@@ -248,7 +248,7 @@ class pfdo_med2image(pfdo.pfdo):
         d_pfdo          : dict  = {}
         d_med2image     : dict  = {}
 
-        # pudb.set_trace()
+        pudb.set_trace()
         self.dp.qprint(
                 "Starting pfdo_med2image run... (please be patient while running)",
                 level = 1

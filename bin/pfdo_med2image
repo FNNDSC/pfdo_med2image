@@ -23,7 +23,7 @@ import  pfmisc
 from    pfmisc._colors      import Colors
 from    pfmisc              import other
 
-str_version = "1.1.2"
+str_version = "1.1.4"
 str_desc = Colors.CYAN + """
 
         __    _                           _  _____  _                             
@@ -73,6 +73,7 @@ def synopsis(ab_shortOnly = False):
                      -I|--inputDir <inputDir>               \\
                      -O|--outputDir <outputDir>             \\
                     [-i|--inputFile <inputFile>]            \\
+                    [--inputFileSubStr <substr>]            \\
                     [--fileFilter <filter1,filter2,...>]    \\
                     [--dirFilter <filter1,filter2,...>]     \\
                     [--analyzeFileIndex <someIndex>]        \\
@@ -119,6 +120,20 @@ def synopsis(ab_shortOnly = False):
         An optional <inputFile> specified relative to the <inputDir>. If
         specified, then do not perform a directory walk, but convert only
         this file.
+
+        [--inputFileSubStr <substr>]
+        As a convenience, the input file can be determined via a substring
+        search of all the files in the <inputDir> using this flag. The first
+        filename hit that contains the <substr> will be assigned the
+        <inputFile>.
+
+        This flag is useful is input names are long and cumbersome, but
+        a short substring search would identify the file. For example, an
+        input file of
+
+           0043-1.3.12.2.1107.5.2.19.45152.2013030808110149471485951.dcm
+
+        can be specified using ``--inputFileSubStr 0043-``
 
         [--fileFilter <someFilter1,someFilter2,...>]
         An optional comma-delimated string to filter out files of interest
@@ -288,6 +303,10 @@ parser.add_argument("-I", "--inputDir",
 parser.add_argument("-i", "--inputFile",
                     help    = "input file",
                     dest    = 'inputFile',
+                    default = '')
+parser.add_argument("--inputFileSubStr",
+                    help    = "input file substring",
+                    dest    = 'inputFileSubStr',
                     default = '')
 parser.add_argument("--fileFilter",
                     help    = "a list of comma separated string filters to apply across the input file space",

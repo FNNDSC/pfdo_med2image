@@ -1,4 +1,4 @@
-pfdo_med2image 1.1.2
+pfdo_med2image 1.1.4
 =====================
 
 .. image:: https://badge.fury.io/py/pfdo_med2image.svg
@@ -65,6 +65,20 @@ Command line arguments
         An optional <inputFile> specified relative to the <inputDir>. If
         specified, then do not perform a directory walk, but convert only
         this file.
+
+        [--inputFileSubStr <substr>]
+        As a convenience, the input file can be determined via a substring
+        search of all the files in the <inputDir> using this flag. The first
+        filename hit that contains the <substr> will be assigned the
+        <inputFile>.
+
+        This flag is useful is input names are long and cumbersome, but
+        a short substring search would identify the file. For example, an
+        input file of
+
+           0043-1.3.12.2.1107.5.2.19.45152.2013030808110149471485951.dcm
+
+        can be specified using ``--inputFileSubStr 0043-``
 
         [--fileFilter <someFilter1,someFilter2,...>]
         An optional comma-delimated string to filter out files of interest
