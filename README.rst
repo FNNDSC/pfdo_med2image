@@ -1,4 +1,4 @@
-pfdo_med2image 1.1.6
+pfdo_med2image 1.1.8
 =====================
 
 .. image:: https://badge.fury.io/py/pfdo_med2image.svg
@@ -86,24 +86,11 @@ Command line arguments
         turn over the space of files in a directory location, and only files
         that contain this token string in their filename are preserved.
 
-        [--dirFilter <someFilter1,someFilter2,...>]
-        Similar to the `fileFilter` but applied over the space of leaf node
-        in directory paths. A directory must contain at least one file
-        to be considered.
-
-        If a directory leaf node contains a string that corresponds to any of
-        the filter tokens, a special "hit" is recorded in the file hit list,
-        "%d-<leafnode>". For example, a directory of
-
-                            /some/dir/in/the/inputspace/here1234
-
-        with a `dirFilter` of `1234` will create a "special" hit entry of
-        "%d-here1234" to tag this directory for processing.
-
-        In addition, if a directory is filtered through, all the files in
-        that directory will be added to the filtered file list. If no files
-        are to be added, passing an explicit file filter with an "empty"
-        single string argument, i.e. `--fileFilter " "`, is advised.
+        [-d|--dirFilter <someFilter1,someFilter2,...>]
+        An additional filter that will further limit any files to process to
+        only those files that exist in leaf directory nodes that have some
+        substring of each of the comma separated <someFilter> in their
+        directory name.
 
         [--analyzeFileIndex <someIndex>]
         An optional string to control which file(s) in a specific directory
@@ -222,7 +209,7 @@ Run down a directory tree and process all the files in the input tree that are `
 .. code:: bash
 
         pfdo_med2image                                      \
-            -I /var/www/html/data --filter nii              \
+            -I /var/www/html/data --fileFilter nii          \
             -O /var/www/html/jpg                            \
             -t jpg                                          \
             --threads 0 --printElapsedTime
