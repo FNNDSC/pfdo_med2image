@@ -23,7 +23,7 @@ import  pfmisc
 from    pfmisc._colors      import Colors
 from    pfmisc              import other
 
-str_version = "1.1.10"
+str_version = "1.1.12"
 str_desc = Colors.CYAN + """
 
         __    _                           _  _____  _                             
@@ -86,6 +86,8 @@ def synopsis(ab_shortOnly = False):
                     [--showSlices]                          \\
                     [--func <functionName>]                 \\
                     [--reslice]                             \\
+                    [--rotAngle <angle>]                    \\
+                    [--rot <3vec>]                          \\
                     [--threads <numThreads>]                \\
                     [--test]                                \\
                     [-x|--man]                              \\
@@ -236,7 +238,7 @@ def synopsis(ab_shortOnly = False):
 
         [--rotAngle <angle>]
         Default 90 -- the rotation angle to apply to a given dimension of the
-        <3DbinVector>
+        <3DbinVector>.
 
         [--func <functionName>]
         Apply the specified transformation function before saving. Currently
