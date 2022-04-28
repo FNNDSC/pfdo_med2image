@@ -23,7 +23,7 @@ import  pfmisc
 from    pfmisc._colors      import Colors
 from    pfmisc              import other
 
-str_version = "1.1.8"
+str_version = "1.1.10"
 str_desc = Colors.CYAN + """
 
         __    _                           _  _____  _                             
@@ -312,10 +312,12 @@ def synopsis(ab_shortOnly = False):
 
     The initial `--fileFilter dcm` will tag only dirs/files that
     contain `dcm` in their filename strings while the additional
-    `--analyzeFileIndex f` will ultimately only call the `med2image`
-    module on the first file in each tagged directory.
-
-    Pedantically, an equivalent, but slower call:
+    `--analyzeFileIndex f` instructs ``pfdo_med2image`` to only
+    call ``med2image`` **once**. When called, ``med2image`` will
+    self-discover and covert all files in each working directory.
+    
+    Pedantically, an equivalent, but slower approach that calls
+    a separate ``med2image`` on **each** tagged DICOM input:
 
         pfdo_med2image                                      \\
             -I /home/rudolph/src/pl-dcm2img/in              \\
@@ -324,8 +326,7 @@ def synopsis(ab_shortOnly = False):
             --fileFilter dcm -t jpg                         \\
             --threads 0 --printElapsedTime
 
-
-    Finally the elapsed time and a JSON output are printed.
+    Finally the elapsed time is also printed.
 
     '''
 

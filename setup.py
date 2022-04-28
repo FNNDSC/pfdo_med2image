@@ -12,7 +12,7 @@ def readme():
 
 setup(
       name             =   'pfdo_med2image',
-      version          =   '1.1.8',
+      version          =   '1.1.10',
       description      =   'Runs med2image on each nested dir of an inputdir',
       long_description =   readme(),
       author           =   'FNNDSC',

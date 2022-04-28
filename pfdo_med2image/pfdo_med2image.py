@@ -165,7 +165,7 @@ class pfdo_med2image(pfdo.pfdo):
             d_inputReadCallback = at_data[1]
             l_fileProbed        = d_inputReadCallback['l_fileProbed']
 
-        pudb.set_trace()
+        # pudb.set_trace()
         med2image_args                  = self.args.copy()
         for str_file in l_fileToAnalyze_determine(l_fileProbed):
             med2image_args['inputDir']      = str_path

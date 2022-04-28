@@ -1,4 +1,4 @@
-pfdo_med2image 1.1.8
+pfdo_med2image 1.1.10
 =====================
 
 .. image:: https://badge.fury.io/py/pfdo_med2image.svg
@@ -140,6 +140,17 @@ Command line arguments
         and the output filename will have each DICOM tag string as
         specified in order, connected with dashes.
 
+        [--convertOnlySingleDICOM]
+        If specified, will only convert the single DICOM specified by the
+        '--inputFile' flag. This is useful for the case when an input
+        directory has many DICOMS but you specifially only want to convert
+        the named file. By default the script assumes that multiple DICOMS
+        should be converted en mass otherwise.
+
+        [--preserveDICOMinputName]
+        If specified, use the input DICOM name as the base of the output
+        filename.
+
         [-t|--outputFileType <outputFileType>]
         The output file type. If different to <outputFileStem> extension,
         will override extension in favour of <outputFileType>.
@@ -159,6 +170,17 @@ Command line arguments
         [--showSlices]
         If specified, render/show image slices as they are created.
 
+        [--rot <3DbinVector>]
+        A per dimension binary rotation vector. Useful to rotate individual
+        dimensions by an angle specified with [--rotAngle <angle>]. Default
+        is '110', i.e. rotate 'x' and 'y' but not 'z'. Note that for a
+        non-reslice selection, only the 'z' (or third) element of the vector
+        is used.
+
+        [--rotAngle <angle>]
+        Default 90 -- the rotation angle to apply to a given dimension of the
+        <3DbinVector>
+
         [--func <functionName>]
         Apply the specified transformation function before saving. Currently
         support functions:
@@ -167,10 +189,10 @@ Command line arguments
               Inverts the contrast intensity of the source image.
 
         [--reslice]
-        For 3D data only. Assuming [i,j,k] coordinates, the default is to save
-        along the 'k' direction. By passing a --reslice image data in the 'i' and
-        'j' directions are also saved. Furthermore, the <outputDir> is subdivided into
-        'slice' (k), 'row' (i), and 'col' (j) subdirectories.
+        For 3D data only. Assuming [x,y,z] coordinates, the default is to save
+        along the 'z' direction. By passing a --reslice image data in the 'x'
+        and 'y' directions are also saved. Furthermore, the <outputDir> is
+        subdivided into 'slice' (z), 'row' (x), and 'col' (y) subdirectories.
 
         [--threads <numThreads>]
         If specified, break the innermost analysis loop into <numThreads>
@@ -200,9 +222,11 @@ Command line arguments
                     - analyze
                     - write
 
-
 Examples
 --------
+
+NIfTI to jpg
+~~~~~~~~~~~~
 
 Run down a directory tree and process all the files in the input tree that are ``nii``, converting them to ``jpg`` at corresponding locations in the output directory:
 
@@ -217,5 +241,32 @@ Run down a directory tree and process all the files in the input tree that are `
 
 The above will find all files in the tree structure rooted at /var/www/html/data that also contain the string "nii" anywhere in the filename. For each file found, a `med2image` conversion will be called in the output directory, in the same tree location as the original input.
 
-Finally the elapsed time and a JSON output are printed.
+Convert a nested tree of DICOMs:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Since ``med2image`` will by default attempt to convert all DICOMS in a directory, we only need to "tag" a single DICOM in a given directory to convert:
+
+.. code:: bash
+
+        pfdo_med2image                                      \
+            -I /home/rudolph/src/pl-dcm2img/in              \
+            -O $PWD/out                                     \
+            --analyzeFileIndex f                            \
+            --fileFilter dcm -t jpg                         \
+            --threads 0 --printElapsedTime
+
+The initial ``--fileFilter dcm`` will tag only dirs/files that contain ``dcm`` in their filename strings while the additional ``--analyzeFileIndex f`` will ultimately only call call ``med2image`` **once**. When called, ``med2image`` will self-discover and covert all files in each working directory. Pedantically, an equivalent, but slower call:
+
+Pedantically, an equivalent, but slower approach that calls a separate ``med2image`` on **each** tagged DICOM input:
+
+.. code:: bash
+
+        pfdo_med2image                                      \
+            -I /home/rudolph/src/pl-dcm2img/in              \
+            -O $PWD/out                                     \
+            --convertOnlySingleDICOM                        \
+            --fileFilter dcm -t jpg                         \
+            --threads 0 --printElapsedTime
+
+Finally the elapsed time is also printed.
 
