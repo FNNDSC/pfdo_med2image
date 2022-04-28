@@ -12,14 +12,14 @@ def readme():
 
 setup(
       name             =   'pfdo_med2image',
-      version          =   '1.1.12',
+      version          =   '1.1.14',
       description      =   'Runs med2image on each nested dir of an inputdir',
       long_description =   readme(),
       author           =   'FNNDSC',
       author_email     =   'dev@babymri.org',
       url              =   'https://github.com/FNNDSC/pfdo_med2image',
       packages         =   ['pfdo_med2image'],
-      install_requires =   ['pfmisc', 'pftree', 'pfdo'],
+      install_requires =   ['pfmisc', 'pftree', 'pfdo', 'med2image'],
       #test_suite       =   'nose.collector',
       #tests_require    =   ['nose'],
       scripts          =   ['bin/pfdo_med2image'],
