@@ -15,7 +15,7 @@ from        pfmisc              import  other
 from        pfmisc              import  error
 
 from        med2image           import  med2image
-import      pfdo
+from        pfdo                import  pfdo
 
 import      pudb
 import      pftree

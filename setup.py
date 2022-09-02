@@ -12,7 +12,7 @@ def readme():
 
 setup(
       name             =   'pfdo_med2image',
-      version          =   '1.1.24',
+      version          =   '2.0.2',
       description      =   'Runs med2image on each nested dir of an inputdir',
       long_description =   readme(),
       author           =   'FNNDSC',
@@ -22,7 +22,12 @@ setup(
       install_requires =   ['pfmisc', 'pftree', 'pfdo', 'med2image'],
       #test_suite       =   'nose.collector',
       #tests_require    =   ['nose'],
-      scripts          =   ['bin/pfdo_med2image'],
+      #scripts          =   ['bin/pfdo_med2image'],
+      entry_points={
+          'console_scripts': [
+              'pfdo_med2image = pfdo_med2image.__main__:main'
+          ]
+      },
       license          =   'MIT',
       zip_safe         =   False
 )
