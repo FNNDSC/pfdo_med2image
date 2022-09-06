@@ -1,4 +1,4 @@
-pfdo_med2image 2.0.2
+pfdo_med2image 2.0.4
 =====================
 
 .. image:: https://badge.fury.io/py/pfdo_med2image.svg

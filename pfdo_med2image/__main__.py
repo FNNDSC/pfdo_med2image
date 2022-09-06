@@ -331,7 +331,6 @@ parser.add_argument('--rotAngle',
 
 def main(argv = None):
     args = parser.parse_args()
-    pudb.set_trace()
     if args.man or args.synopsis:
         print(str_desc)
         if args.man:
