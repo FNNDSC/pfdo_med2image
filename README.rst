@@ -1,4 +1,4 @@
-pfdo_med2image 1.1.24
+pfdo_med2image 2.0.2
 =====================
 
 .. image:: https://badge.fury.io/py/pfdo_med2image.svg
@@ -16,7 +16,7 @@ pfdo_med2image 1.1.24
 Quick Overview
 --------------
 
--  ``pfdo_med2image`` demonstrates how to use ``pftree`` to transverse directory trees and execute a ``med2image`` analysis at each directory level (that optionally contains files of interest).
+-  ``pfdo_med2image`` recursively transverses directory trees and executes a ``med2image`` analysis at each directory level (that optionally contains files of interest).
 
 Overview
 --------
